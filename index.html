@@ -29,7 +29,7 @@
       height: 100%;
       background-image: url('IMG_2551.jpg');
       background-size: cover;
-      background-position: center -80px; /* 更靠上偏移背景图 */
+      background-position: center -80px;
       position: relative;
       border-radius: 5px;
       box-shadow: 0 8px 20px rgba(0,0,0,0.3);
@@ -75,6 +75,27 @@
     .opened .letter {
       top: 0;
     }
+
+    .audio-control {
+      position: fixed;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .audio-control img {
+      width: 24px;
+      height: 24px;
+    }
   </style>
 </head>
 <body>
@@ -88,11 +109,31 @@
     </div>
   </div>
 
+  <audio id="bgm" src="music.mp3" loop autoplay></audio>
+  <div class="audio-control" id="audioToggle">
+    <img id="audioIcon" src="https://cdn-icons-png.flaticon.com/512/727/727269.png" alt="Audio Icon">
+  </div>
+
   <script>
     const envelope = document.getElementById("envelope");
+    const bgm = document.getElementById("bgm");
+    const audioToggle = document.getElementById("audioToggle");
+    const audioIcon = document.getElementById("audioIcon");
+
     envelope.addEventListener("click", () => {
       envelope.classList.toggle("opened");
+    });
+
+    audioToggle.addEventListener("click", () => {
+      if (bgm.paused) {
+        bgm.play();
+        audioIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727269.png";
+      } else {
+        bgm.pause();
+        audioIcon.src = "https://cdn-icons-png.flaticon.com/512/727/727240.png";
+      }
     });
   </script>
 </body>
 </html>
+
